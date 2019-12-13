@@ -33,7 +33,11 @@ CREATE TABLE hfp.points (
   acc     real,
   dl      integer,
   odo     integer,
-  drst    boolean,
-  geom    geometry      NOT NULL,
+  drst    boolean
   PRIMARY KEY (desi, dir, tsdep, tst)
 );
+
+-- 2D point geom column using ETRS-TM35;
+-- this function takes care of constraints and indexes
+-- as opposed to stating `geom   geometry, ...` above.
+SELECT AddGeometryColumn ('hfp', 'points', 'geom', 3067, 'POINT', 2);
