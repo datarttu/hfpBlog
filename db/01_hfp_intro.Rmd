@@ -1,0 +1,93 @@
+---
+title: "HFP intro title here TODO"
+author: "Arttu Kosonen"
+date: "13 December 2019"
+output: html_document
+---
+
+## What is HFP data?
+
+HFP stands for *high frequency positioning*.
+It is soft real time data of public transport vehicle positions and events, provided by HSL Helsinki Region Transport through an open Digitransit API.
+For a detailed documentation, see the [Digitransit site](https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions/).
+Practically, HFP is a particular form of [Automatic Vehicle Location (AVL)](https://en.wikipedia.org/wiki/Automatic_vehicle_location) data, but I'll keep on using the term *HFP* since not all the concepts I will go through here can be applied to AVL data in general.
+
+The API provides the real-time HFP stream using a protocol called [MQTT](http://mqtt.org/) -- usually used with IoT devices.
+Whereas with a REST or GraphQL API it is your task to make a HTTP request and hopefully get a data set regarding that moment of time in response, with MQTT you open a connection and get responses, i.e. vehicle location data, as often as the vehicles want to send them.
+
+Now, if you follow the Digitransit [instructions](https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions/#quickstart) (this should work on a Mac or Linux terminal at least; I'm using Ubuntu 18.04),
+
+```
+npm install -g mqtt
+mqtt subscribe -h mqtt.hsl.fi -p 8883 -l mqtts -v -t "/hfp/v2/journey/#"
+```
+
+you'd start receiving a huge stream of messages like this:
+
+```
+/hfp/v2/journey/ongoing/vp/train/0090/01044/3001I/1/Lentoasema-Helsinki/15:56/1392501/4/60;25/20/51/69
+{"VP":{"desi":"I","dir":"1","oper":90,"veh":1044,"tst":"2019-12-13T14:10:30.230Z","tsi":1576246230,
+"spd":25.02,"hdg":37,"lat":60.256553,"long":25.019700,"acc":0.57,"dl":-74,"odo":10932,"drst":0,
+"oday":"2019-12-13","jrn":9084,"line":279,"start":"15:56","loc":"GPS","stop":null,"route":"3001I","occu":0}}
+```
+
+We see that the stuff inside the curly brackets `{}` is in JSON format and we can easily parse it.
+This stuff is called the *payload*, while the first part, fields separated by `/`, is called the *topic*.
+The topic tells what we were actually subscribing to, and we could for example change it to only include `ongoing` journeys operated by `tram` vehicles:
+
+```
+mqtt subscribe -h mqtt.hsl.fi -p 8883 -l mqtts -v -t "/hfp/v2/journey/ongoing/vp/tram/#"
+```
+
+For topic formatting, see the [Digitransit docs](https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions/#the-topic).
+
+From the JSON *payload* above we can see that there are latitude and longitude coordinates as well as a detailed timestamp available, but in addition, a whole lot of other interesting attributes.
+You'll find information on the particular mode, headsign, direction id, route name, original departure time, etc., of the observation.
+Even the delay (estimate) compared to the schedule is available in seconds in the `dl` field, as well as the door status: `"drst":0` means the doors are closed, while `"drst":1` would mean the doors of the vehicle are open (and the vehicle is hopefully waiting at a stop).
+Doesn't this sound like an endless opportunity for various analyses... if you just gather the data for later use?
+
+Therefore, I'm interested in how to make use of HFP *history* data:
+in this case, I have been subscribing to all the trams in the HSL area ever since Spring 2019, keeping the connection open for an entire day at a time, and saving the raw data stream directly to a text file.
+As a result, I have a whole lot of data similar to GPS tracks, for instance, but as said, the data points also have attributes in addition to coordinates and timestamp.
+I've done this on my own little cloud server using Debian OS.
+The server has been using a quick-and-dirty implementation of the above `npm-mqtt` example, where a cronjob takes care of running the subscription, piping the output to a file and finally zipping the file.
+While this implementation used HFP API v1, I've been developing a Python script for subscribing to HFP v2 which is a bit more sophisticated and has more attributes available than the old version.
+You can find the work in progress in my [hfplogger repo](https://github.com/datarttu/hfplogger).
+
+Below, I'm going to dig deeper into the raw HFP history data.
+This time I'll focus on basic attributes such as coordinates and timestamps, and see what the data and its quality look like.
+Later on, we get to see if we can reasonably combine the HFP data with other data sources for meaningful analyses.
+
+## Sample dataset
+
+As said above, I've been saving *tram* position data from the Helsinki area.
+You could get all the buses, trains and subways as well, but then the amount of data would be huge.
+I find trams a good demonstration case, since they move on a very limited network, and the amount of different routes in Helsinki area (10 main tram routes) is relatively low, enabling clear visualization and analysis.
+
+As a sample dataset, I'm using a week's worth of observations from raw text files.
+Each line in the files contains an observation as shown above.
+Using a simple [parser script](https://github.com/datarttu/hfpparser), I've converted the topic-payload lines into neat CSV files:
+
+```
+└── tidy
+    ├── hsl_tram_geo4_tidy_2019-06-03.csv
+    ├── hsl_tram_geo4_tidy_2019-06-04.csv
+    ├── hsl_tram_geo4_tidy_2019-06-05.csv
+    ├── hsl_tram_geo4_tidy_2019-06-06.csv
+    ├── hsl_tram_geo4_tidy_2019-06-07.csv
+    ├── hsl_tram_geo4_tidy_2019-06-08.csv
+    └── hsl_tram_geo4_tidy_2019-06-09.csv
+```
+
+Each line in them looks like this:
+
+```
+desi,dir,veh,tst,spd,hdg,lat,long,acc,dl,odo,drst,oday,start
+1,2,100,2019-06-03T15:30:01Z,5.83,89,60.171165,24.928135,0.26,-6,7246,0,2019-06-03,18:04
+6T,2,414,2019-06-03T15:30:01Z,5.93,178,60.157171,24.921847,-0.72,-25,7701,0,2019-06-03,17:51
+1,1,113,2019-06-03T15:30:01Z,2.52,324,60.170663,24.937399,0.76,-180,2378,0,2019-06-03,18:16
+```
+
+You can see that I've not included all the possible HFP fields.
+This is because either I'm not interested in some of them or they are redundant, such as `tsi` which is just the UNIX epoch seconds representation of the `tst` timestamp field.
+
