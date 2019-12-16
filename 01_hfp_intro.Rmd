@@ -91,3 +91,12 @@ desi,dir,veh,tst,spd,hdg,lat,long,acc,dl,odo,drst,oday,start
 You can see that I've not included all the possible HFP fields.
 This is because either I'm not interested in some of them or they are redundant, such as `tsi` which is just the UNIX epoch seconds representation of the `tst` timestamp field.
 
+There are about 500 000 lines in every file.
+If we aim to handle multiple days, weeks or even months of data, it is quite obvious that we're going to need a database for that, even though there are plenty of decent libraries to analyze movement data with e.g. R.
+Moreover, I want to improve on my skills in [PostgreSQL](https://www.postgresql.org/docs/12/) and [PostGIS](https://postgis.net/docs/manual-2.5/), tools I'm already somewhat familiar with, so we're going to use them now.
+Once we get our data into a database, we can use it as a basis for any kind of an analysis, whether it be using R, QGIS or whatever.
+
+See the [database directory](https://github.com/datarttu/hfpBlog/tree/master/db) in the GitHub repo to learn more about the schema and how I've created the database instance.
+
+
+    
