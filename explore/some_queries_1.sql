@@ -13,3 +13,27 @@ order by 1;
 --select distinct desi from points order by desi;
 with deps as (select distinct desi, dir, tsdep from points)
 select desi, dir, count(tsdep) from deps group by desi, dir order by 3 desc; 
+
+WITH inm AS 
+(SELECT
+  shape_id,
+  max(shape_dist_traveled) AS total_dist_traveled,
+  ST_Transform(
+    ST_MakeLine(
+      ST_SetSRID(
+        ST_MakePoint(shape_pt_lon, shape_pt_lat),
+        4326
+        ) ORDER BY shape_pt_sequence
+      ),
+    3067
+  ) AS geom
+FROM gtfs.shapes
+GROUP BY shape_id)
+SELECT *, ST_Length(geom)/1000 AS len_km, 1 - total_dist_traveled / (ST_Length(geom)/1000) AS reldiff
+FROM inm
+LIMIT 100;
+
+select * from gtfs.trips
+inner join gtfs.shape_lines
+using (shape_id)
+limit 100;
