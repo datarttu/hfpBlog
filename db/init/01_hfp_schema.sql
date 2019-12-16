@@ -33,7 +33,7 @@ CREATE TABLE hfp.points (
   acc     real,
   dl      integer,
   odo     integer,
-  drst    boolean
+  drst    boolean,
   PRIMARY KEY (desi, dir, tsdep, tst)
 );
 
