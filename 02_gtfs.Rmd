@@ -1,0 +1,19 @@
+---
+title: "GTFS intro title here TODO"
+author: "Arttu Kosonen"
+output: html_document
+---
+
+**TODO: GTFS stuff, HSL, Transitfeeds etc.**
+
+Since I'm using HFP data from July 2019, I looked for the latest GTFS package covering that period of time.
+It is from 21 June 2019 and can be found [here](https://transitfeeds.com/p/helsinki-regional-transport/735/20190621).
+Download and uncompress the package, and place the files in `rawdata/gtfs/`.
+
+There is a weird little error with the `stops.txt` file in the HSL feed:
+the `parent_station` field is populated with a whitespace wherever the stop has no parent, although the field should be just empty in that case.
+You can open the file and use search & replace to replace the `", ,"` occurrences with `",,"`, or if using Linux, do this:
+
+```
+sed -i -e 's/, ,/,,/g' stops.txt
+```
