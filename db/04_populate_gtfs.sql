@@ -1,19 +1,19 @@
 \connect hfpdb;
 BEGIN;
-TRUNCATE gtfs.calendar_dates;
-TRUNCATE gtfs.calendar;
+TRUNCATE gtfs_staging.calendar_dates CASCADE;
+TRUNCATE gtfs_staging.calendar CASCADE;
 TRUNCATE gtfs.routes CASCADE;
-TRUNCATE gtfs.shapes;
-TRUNCATE gtfs.shape_lines;
+TRUNCATE gtfs_staging.shapes CASCADE;
+TRUNCATE gtfs.shape_lines CASCADE;
+TRUNCATE gtfs_staging.stops CASCADE;
 TRUNCATE gtfs.stops CASCADE;
-TRUNCATE gtfs.stop_points;
 TRUNCATE gtfs.trips CASCADE;
-TRUNCATE gtfs.stop_times;
-\copy gtfs.calendar_dates FROM ../rawdata/hsl-gtfs_20190531-20190714/calendar_dates.txt CSV HEADER;
-\copy gtfs.calendar FROM ../rawdata/hsl-gtfs_20190531-20190714/calendar.txt CSV HEADER;
+TRUNCATE gtfs.stop_times CASCADE;
+\copy gtfs_staging.calendar_dates FROM ../rawdata/hsl-gtfs_20190531-20190714/calendar_dates.txt CSV HEADER;
+\copy gtfs_staging.calendar FROM ../rawdata/hsl-gtfs_20190531-20190714/calendar.txt CSV HEADER;
 \copy gtfs.routes FROM ../rawdata/hsl-gtfs_20190531-20190714/routes.txt CSV HEADER;
-\copy gtfs.shapes FROM ../rawdata/hsl-gtfs_20190531-20190714/shapes.txt CSV HEADER;
-\copy gtfs.stops FROM ../rawdata/hsl-gtfs_20190531-20190714/stops.txt CSV HEADER;
+\copy gtfs_staging.shapes FROM ../rawdata/hsl-gtfs_20190531-20190714/shapes.txt CSV HEADER;
+\copy gtfs_staging.stops FROM ../rawdata/hsl-gtfs_20190531-20190714/stops.txt CSV HEADER;
 \copy gtfs.trips FROM ../rawdata/hsl-gtfs_20190531-20190714/trips.txt CSV HEADER;
 --\copy gtfs.stop_times FROM ../rawdata/hsl-gtfs_20190531-20190714/stop_times.txt CSV HEADER;
 
@@ -31,11 +31,11 @@ SELECT
       ),
     3067
   ) AS geom
-FROM gtfs.shapes
+FROM gtfs_staging.shapes
 GROUP BY shape_id;
 
 -- Transform stops with float coordinates into point geom table
-INSERT INTO gtfs.stop_points
+INSERT INTO gtfs.stops
 SELECT stop_id, stop_code, stop_name, stop_desc, zone_id, stop_url,
   location_type, parent_station, wheelchair_boarding, platform_code, vehicle_type,
   ST_Transform(
@@ -44,6 +44,6 @@ SELECT stop_id, stop_code, stop_name, stop_desc, zone_id, stop_url,
       4326), 
     3067
   ) AS geom
-FROM gtfs.stops;
+FROM gtfs_staging.stops;
 
 COMMIT;

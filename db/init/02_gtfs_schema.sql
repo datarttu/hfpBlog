@@ -1,13 +1,15 @@
+\connect hfpdb;
+
 -- omit agency
 
-CREATE TABLE gtfs.calendar_dates (
+CREATE TABLE gtfs_staging.calendar_dates (
   service_id     text         NOT NULL,
   date           date         NOT NULL,
   exception_type smallint     NOT NULL,
   PRIMARY KEY (service_id, date)
 );
 
-CREATE TABLE gtfs.calendar (
+CREATE TABLE gtfs_staging.calendar (
   service_id     text         PRIMARY KEY,
   monday         boolean      NOT NULL,
   tuesday        boolean      NOT NULL,
@@ -35,7 +37,7 @@ CREATE TABLE gtfs.routes (
   route_url         text
 );
 
-CREATE TABLE gtfs.shapes (
+CREATE TABLE gtfs_staging.shapes (
   shape_id            text          NOT NULL,
   shape_pt_lat        numeric(8, 6) NOT NULL,
   shape_pt_lon        numeric(8, 6) NOT NULL,
@@ -54,7 +56,7 @@ CREATE TABLE gtfs.shape_lines (
 );
 SELECT AddGeometryColumn ('gtfs', 'shape_lines', 'geom', 3067, 'LINESTRING', 2);
 
-CREATE TABLE gtfs.stops (
+CREATE TABLE gtfs_staging.stops (
   stop_id             integer       PRIMARY KEY,
   stop_code           text,
   stop_name           text,
@@ -74,7 +76,7 @@ CREATE TABLE gtfs.stops (
 Non-gtfs table for point geometry representations
 of the above stops.
 */
-CREATE TABLE gtfs.stop_points (
+CREATE TABLE gtfs.stops (
   stop_id             integer       PRIMARY KEY,
   stop_code           text,
   stop_name           text,
@@ -87,7 +89,7 @@ CREATE TABLE gtfs.stop_points (
   platform_code       text,
   vehicle_type        smallint -- NOTE: non-standard attribute by HSL
 );
-SELECT AddGeometryColumn ('gtfs', 'stop_points', 'geom', 3067, 'POINT', 2);
+SELECT AddGeometryColumn ('gtfs', 'stops', 'geom', 3067, 'POINT', 2);
 
 -- omit translations
 

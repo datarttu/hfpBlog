@@ -20,5 +20,5 @@ SELECT
       ST_MakePoint(long, lat),
       4326),
     3067) AS geom
-FROM hfp.staging
+FROM hfp_staging.points
 ON CONFLICT DO NOTHING;

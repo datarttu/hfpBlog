@@ -1,4 +1,6 @@
-CREATE TABLE hfp.staging (
+\connect hfpdb;
+
+CREATE TABLE hfp_staging.points (
   desi    text,
   dir     smallint,
   veh     smallint,
