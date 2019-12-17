@@ -1,5 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS gtfs;
-
 -- omit agency
 
 CREATE TABLE gtfs.calendar_dates (

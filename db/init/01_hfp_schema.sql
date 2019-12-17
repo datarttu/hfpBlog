@@ -1,10 +1,3 @@
-CREATE DATABASE hfpdb;
-\connect hfpdb;
-
-CREATE EXTENSION postgis;
-
-CREATE SCHEMA hfp;
-
 CREATE TABLE hfp.staging (
   desi    text,
   dir     smallint,
