@@ -18,14 +18,14 @@ TRUNCATE gtfs.stops CASCADE;
 TRUNCATE gtfs.trips CASCADE;
 TRUNCATE gtfs.stop_times CASCADE;
 
-\copy gtfs_staging.calendar_dates FROM ../rawdata/hsl-gtfs_20190531-20190714/calendar_dates.txt CSV HEADER;
-\copy gtfs_staging.calendar FROM ../rawdata/hsl-gtfs_20190531-20190714/calendar.txt CSV HEADER;
-\copy gtfs.routes FROM ../rawdata/hsl-gtfs_20190531-20190714/routes.txt CSV HEADER;
-\copy gtfs_staging.shapes FROM ../rawdata/hsl-gtfs_20190531-20190714/shapes.txt CSV HEADER;
-\copy gtfs_staging.stops FROM ../rawdata/hsl-gtfs_20190531-20190714/stops.txt CSV HEADER;
-\copy gtfs.trips FROM ../rawdata/hsl-gtfs_20190531-20190714/trips.txt CSV HEADER;
+\copy gtfs_staging.calendar_dates FROM ../rawdata/gtfs/calendar_dates.txt CSV HEADER;
+\copy gtfs_staging.calendar FROM ../rawdata/gtfs/calendar.txt CSV HEADER;
+\copy gtfs.routes FROM ../rawdata/gtfs/routes.txt CSV HEADER;
+\copy gtfs_staging.shapes FROM ../rawdata/gtfs/shapes.txt CSV HEADER;
+\copy gtfs_staging.stops FROM ../rawdata/gtfs/stops.txt CSV HEADER;
+\copy gtfs.trips FROM ../rawdata/gtfs/trips.txt CSV HEADER;
 -- stop_times ignored as of 2019-12-17 since it is huge and not needed yet
---\copy gtfs.stop_times FROM ../rawdata/hsl-gtfs_20190531-20190714/stop_times.txt CSV HEADER;
+--\copy gtfs.stop_times FROM ../rawdata/gtfs/stop_times.txt CSV HEADER;
 
 -- Transform row-wise shape points into linestring table
 INSERT INTO gtfs.shape_lines

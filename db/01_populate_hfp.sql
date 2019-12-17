@@ -10,13 +10,13 @@ BEGIN;
 
 TRUNCATE hfp_staging.points;
 
-\copy hfp_staging.points FROM ../rawdata/tidy/hsl_tram_geo4_tidy_2019-06-03.csv CSV HEADER;
-\copy hfp_staging.points FROM ../rawdata/tidy/hsl_tram_geo4_tidy_2019-06-04.csv CSV HEADER;
-\copy hfp_staging.points FROM ../rawdata/tidy/hsl_tram_geo4_tidy_2019-06-05.csv CSV HEADER;
-\copy hfp_staging.points FROM ../rawdata/tidy/hsl_tram_geo4_tidy_2019-06-06.csv CSV HEADER;
-\copy hfp_staging.points FROM ../rawdata/tidy/hsl_tram_geo4_tidy_2019-06-07.csv CSV HEADER;
-\copy hfp_staging.points FROM ../rawdata/tidy/hsl_tram_geo4_tidy_2019-06-08.csv CSV HEADER;
-\copy hfp_staging.points FROM ../rawdata/tidy/hsl_tram_geo4_tidy_2019-06-09.csv CSV HEADER;
+\copy hfp_staging.points FROM ../rawdata/tidy_hfp/hsl_tram_geo4_tidy_2019-07-01.csv CSV HEADER;
+\copy hfp_staging.points FROM ../rawdata/tidy_hfp/hsl_tram_geo4_tidy_2019-07-02.csv CSV HEADER;
+\copy hfp_staging.points FROM ../rawdata/tidy_hfp/hsl_tram_geo4_tidy_2019-07-03.csv CSV HEADER;
+\copy hfp_staging.points FROM ../rawdata/tidy_hfp/hsl_tram_geo4_tidy_2019-07-04.csv CSV HEADER;
+\copy hfp_staging.points FROM ../rawdata/tidy_hfp/hsl_tram_geo4_tidy_2019-07-05.csv CSV HEADER;
+\copy hfp_staging.points FROM ../rawdata/tidy_hfp/hsl_tram_geo4_tidy_2019-07-06.csv CSV HEADER;
+\copy hfp_staging.points FROM ../rawdata/tidy_hfp/hsl_tram_geo4_tidy_2019-07-07.csv CSV HEADER;
 
 INSERT INTO hfp.points
 SELECT
