@@ -24,8 +24,7 @@ TRUNCATE gtfs.stop_times CASCADE;
 \copy gtfs_staging.shapes FROM ../rawdata/gtfs/shapes.txt CSV HEADER;
 \copy gtfs_staging.stops FROM ../rawdata/gtfs/stops.txt CSV HEADER;
 \copy gtfs.trips FROM ../rawdata/gtfs/trips.txt CSV HEADER;
--- stop_times ignored as of 2019-12-17 since it is huge and not needed yet
---\copy gtfs.stop_times FROM ../rawdata/gtfs/stop_times.txt CSV HEADER;
+\copy gtfs.stop_times FROM ../rawdata/gtfs/stop_times.txt CSV HEADER;
 
 -- Transform row-wise shape points into linestring table
 INSERT INTO gtfs.shape_lines
