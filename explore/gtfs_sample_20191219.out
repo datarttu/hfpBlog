@@ -1,0 +1,114 @@
+  ?column?  
+------------
+ gtfs.stops
+(1 row)
+
+ stop_id | stop_code |    stop_name    |   stop_desc   | zone_id | location_type | parent_station | wheelchair_boarding | platform_code | vehicle_type |    geomtext     
+---------+-----------+-----------------+---------------+---------+---------------+----------------+---------------------+---------------+--------------+-----------------
+ 1010102 | 2007      | Ritarihuone     | Mariankatu    | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010103 | 2008      | Kirkkokatu      | Mariankatu 13 | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010104 | 2009      | Kirkkokatu      | Mariankatu 12 | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010105 | 2010      | Vironkatu       | Mariankatu 17 | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010106 | 2011      | Vironkatu       | Mariankatu 20 | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010107 | 2014      | Meritullinkatu  | Liisankatu 8  | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010108 | 2013      | Meritullinkatu  | Liisankatu 11 | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010109 | 2016      | Liisanpuistikko | Liisankatu    | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010110 | 2015      | Liisanpuistikko | Liisankatu 1  | A       |             0 |                |                   2 |               |            3 | (xy point here)
+ 1010124 | 0454      | Snellmaninkatu  | Liisankatu 20 | A       |             0 |                |                   2 |               |            3 | (xy point here)
+(10 rows)
+
+  ?column?   
+-------------
+ gtfs.routes
+(1 row)
+
+ route_id | agency_id | route_short_name |                  route_long_name                   | route_desc | route_type |                   route_url                   
+----------+-----------+------------------+----------------------------------------------------+------------+------------+-----------------------------------------------
+ 1001     | HSL       | 1                | Eira - Töölö - Käpylä                              |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h1_1a.html
+ 1001H    | HSL       | 1H               | Käpylä - Koskelan halli                            |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h1_1a.html
+ 1002     | HSL       | 2                | Olympiaterminaali - Töölö - Meilahti               |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h2.html
+ 1002H    | HSL       | 2H               | Meilahti - Töölön halli                            |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h2.html
+ 1002X    | HSL       | 2X               | Lasipalatsi - Töölö - Pasila                       |            |        701 | http://aikataulut.hsl.fi/linjat/fi/b2X.html
+ 1003     | HSL       | 3                | Olympiaterminaali - Eira - Kallio - Meilahti       |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h3.html
+ 1003H    | HSL       | 3H               | Olympiaterminaali - Eira - Koskelan halli          |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h3.html
+ 1004     | HSL       | 4                | Katajanokka - Lasipalatsi - Meilahti - Munkkiniemi |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h4.html
+ 1004H    | HSL       | 4H               | Munkkiniemi - Meilahti - Töölön halli              |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h4.html
+ 1005     | HSL       | 5                | Katajanokan terminaali - Rautatieasema             |            |          0 | http://aikataulut.hsl.fi/linjat/fi/h5.html
+(10 rows)
+
+  ?column?  
+------------
+ gtfs.trips
+(1 row)
+
+ route_id |        service_id         |         trip_id         | trip_headsign | direction_id |    shape_id     | wheelchair_accesible | bikes_allowed | max_delay 
+----------+---------------------------+-------------------------+---------------+--------------+-----------------+----------------------+---------------+-----------
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_0958 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1010 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1022 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1034 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1047 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1059 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1111 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1123 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1135 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+ 1001     | 1001_20190621_20190630_JH | 1001_20190621_JH_1_1147 | Käpylä        |            0 | 1001_20190304_1 |                    1 |             2 |         5
+(10 rows)
+
+    ?column?     
+-----------------
+ gtfs.stop_times
+(1 row)
+
+         trip_id         | arrival_time | departure_time | stop_id | stop_sequence |     stop_headsign      | pickup_type | drop_off_type | shape_dist_traveled | timepoint 
+-------------------------+--------------+----------------+---------+---------------+------------------------+-------------+---------------+---------------------+-----------
+ 1001_20190621_JH_1_0958 | 09:58:00     | 09:58:00       | 1050417 |             1 | Käpylä via Lasipalatsi |           0 |             1 |                   0 | t
+ 1001_20190621_JH_1_0958 | 09:59:00     | 09:59:00       | 1050416 |             2 | Käpylä via Lasipalatsi |           0 |             0 |               0.281 | f
+ 1001_20190621_JH_1_0958 | 10:00:00     | 10:00:00       | 1060404 |             3 | Käpylä via Lasipalatsi |           0 |             0 |               0.611 | f
+ 1001_20190621_JH_1_0958 | 10:02:00     | 10:02:00       | 1050408 |             4 | Käpylä via Lasipalatsi |           0 |             0 |               0.971 | f
+ 1001_20190621_JH_1_0958 | 10:03:00     | 10:03:00       | 1050413 |             5 | Käpylä via Lasipalatsi |           0 |             0 |               1.193 | f
+ 1001_20190621_JH_1_0958 | 10:05:00     | 10:05:00       | 1040401 |             6 | Käpylä via Lasipalatsi |           0 |             0 |               1.463 | f
+ 1001_20190621_JH_1_0958 | 10:06:00     | 10:06:00       | 1040437 |             7 | Käpylä via Lasipalatsi |           0 |             0 |               1.737 | f
+ 1001_20190621_JH_1_0958 | 10:08:00     | 10:08:00       | 1020463 |             8 | Käpylä via Töölö       |           0 |             0 |               2.051 | f
+ 1001_20190621_JH_1_0958 | 10:11:00     | 10:11:00       | 1020444 |             9 | Käpylä via Töölö       |           0 |             0 |               2.363 | f
+ 1001_20190621_JH_1_0958 | 10:13:00     | 10:13:00       | 1130436 |            10 | Käpylä via Töölö       |           0 |             0 |               2.787 | f
+(10 rows)
+
+     ?column?     
+------------------
+ gtfs.shape_lines
+(1 row)
+
+     shape_id      | total_dist_traveled |     geomtext      
+-------------------+---------------------+-------------------
+ 1001 3_20190617_1 |               4.843 | (linestring here)
+ 1001 4_20190617_2 |               8.489 | (linestring here)
+ 1001 9_20190701_2 |               7.034 | (linestring here)
+ 1002_20190603_1   |                6.12 | (linestring here)
+ 1001H3_20190617_2 |               5.062 | (linestring here)
+ 1001H4_20190617_1 |               8.734 | (linestring here)
+ 1001H9_20190701_1 |               7.067 | (linestring here)
+ 1005_20190610_2   |               2.124 | (linestring here)
+ 1001_20190304_1   |              10.083 | (linestring here)
+ 1001_20190304_2   |              10.061 | (linestring here)
+(10 rows)
+
+       ?column?        
+-----------------------
+ calendar, transformed
+(1 row)
+
+         service_id          |                          dates                           
+-----------------------------+----------------------------------------------------------
+ 1001 3_20190621_20190630_JH | {2019-06-21}
+ 1001 3_20190621_20190630_JP | {2019-06-22}
+ 1001 3_20190621_20190630_Ke | {2019-06-26}
+ 1001 3_20190621_20190630_Ma | {2019-06-24}
+ 1001 3_20190621_20190630_Pe | {2019-06-28}
+ 1001 3_20190621_20190630_Su | {2019-06-23,2019-06-30}
+ 1001 3_20190621_20190630_TL | {2019-06-29}
+ 1001 3_20190621_20190630_Ti | {2019-06-25}
+ 1001 3_20190621_20190630_To | {2019-06-27}
+ 1001 3_20190701_20190804_Ke | {2019-07-03,2019-07-10,2019-07-17,2019-07-24,2019-07-31}
+(10 rows)
+
