@@ -21,7 +21,8 @@ TRUNCATE hfp_staging.points;
 INSERT INTO hfp.points
 SELECT
   route,
-  dir,
+  -- Convert direction id from HFP space {1, 2} to GTFS space {0, 1}
+  dir - 1 AS dir,
   -- Start day and time in Finnish local time in the raw data
   (oday + start) AT TIME ZONE 'Europe/Helsinki' AS tsdep,
   tst,
