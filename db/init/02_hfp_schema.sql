@@ -1,7 +1,7 @@
 \connect hfpdb;
 
 CREATE TABLE hfp_staging.points (
-  desi    text,
+  route   text,
   dir     smallint,
   veh     smallint,
   tst     timestamptz,
@@ -18,7 +18,7 @@ CREATE TABLE hfp_staging.points (
 );
 
 CREATE TABLE hfp.points (
-  desi    text          NOT NULL,
+  route   text          NOT NULL,
   dir     smallint      NOT NULL,
   tsdep   timestamptz   NOT NULL,
   tst     timestamptz   NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE hfp.points (
   dl      integer,
   odo     integer,
   drst    boolean,
-  PRIMARY KEY (desi, dir, tsdep, tst)
+  PRIMARY KEY (route, dir, tsdep, tst)
 );
 
 -- 2D point geom column using ETRS-TM35;
