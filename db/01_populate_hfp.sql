@@ -1,5 +1,5 @@
 /*
-Populate HFP data tables.
+Populate HFP data tables with raw data from HFP v1 and selected fields only.
 Delete possible existing raw data, 
 and the imported raw data at the end.
 */
