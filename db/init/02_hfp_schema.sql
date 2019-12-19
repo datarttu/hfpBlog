@@ -36,3 +36,6 @@ CREATE TABLE hfp.points (
 -- this function takes care of constraints and indexes
 -- as opposed to stating `geom   geometry, ...` above.
 SELECT AddGeometryColumn ('hfp', 'points', 'geom', 3067, 'POINT', 2);
+
+-- Partition the large points table using Timescale hypertable
+SELECT create_hypertable('hfp.points', 'tst', chunk_time_interval => interval '1 day');
