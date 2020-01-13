@@ -19,4 +19,4 @@ SELECT pt.route, pt.dir, pt.tsdep, pt.tst,
 ST_ShortestLine(pt.geom, ls.geom) AS geom
 FROM hfp.points AS pt
 INNER JOIN ls 
-ON pt.route = ls.route AND pt.dir = ls.dir AND pt.tsdep = ls.tsdep
+ON pt.route = ls.route AND pt.dir = ls.dir AND pt.tsdep = ls.tsdep;
